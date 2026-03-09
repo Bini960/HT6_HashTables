@@ -1,20 +1,26 @@
 public class HashMap {
+    //Arreglo de nodos para manejar colisiones
     private Nodo[] arreglo;
+    // Tamaño del arreglo (número primo para mejor distribución)
     private int tamaño = 17;
-
+    // Constructor del arreglo al momento de iniciar el programa
     public HashMap() {
         arreglo = new Nodo[tamaño];
     }
 
-    // Función Hash
+    // Función Hash (Método de la Potencia)
+    // Transforma el nombre de la constelación (String) en un número de casilla (0 al 16)
     public int generarHash(String llave) {
         int hash = 0;
-
+         // Recorremos la palabra letra por letra 
         for (int i = 0; i < llave.length(); i++) {
             char letra = llave.charAt(i);
+            // Multiplicamos el acumulado por 31 (el número primo estándar en Java), esto evita la colision de palabras que son anagramas.
             hash = (hash * 31) + letra;
         }
 
+        // Evita un error del sistema si el Hash se vuelve un número negativo grande
+        // El módulo recorta el Hash para que el residuoencaje exactamente en una de nuestras 17 casillas (del 0 al 16).
         return Math.abs(hash) % tamaño;
     }
 
